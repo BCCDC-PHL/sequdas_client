@@ -1,0 +1,48 @@
+{% set name = "sequdas-client" %}
+{% set version = "1.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "cc65b692f072dd2566054fc18eff01f41fedec23e0054943b85ae950bf22c45a"
+
+build:
+  number: 0
+  entry_points:
+    - sequdas_client=sequdas_client.sequdas_client:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+    - configparser
+    - mysql-connector-python
+    - pytz
+    - ntplib
+    - validate_email
+    - paramiko
+
+test:
+  imports:
+    - sequdas_client
+    - sequdas_client.Lib
+  # commands:
+  #   - sequdas_client --help
+
+about:
+  home: "https://github.com/duanjunhyq/sequdas"
+  license: "MIT"
+  license_family: "MIT"
+  license_file: ""
+  summary: "SeqUDAS: Sequence Upload and Data Archiving System"
+  doc_url: ""
+  dev_url: ""
+
+extra:
+  recipe-maintainers:
+    - duanjunhyq
