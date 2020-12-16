@@ -211,8 +211,8 @@ def main():
                 doInsert(current_ID,machine,run_handle,run_name,status_id,timestamp,sample_infor)
                 # Archive log file and run data            
                 logfile_dir_without_slash=del_end_slash(logfile_dir)
-                subprocess.call(["rsync","-q","-p","--chmod=ug=rwx","-e","ssh -i "+ssh_private_key,"-artvh",logfile_dir_without_slash,data_server_user+"@"+data_server_host+":"+server_log_dir])
-                rsynccmd = 'rsync -artvh -q -p -e "ssh -i '+ssh_private_key+'" '+'--chmod=ug=rwx '+ run_handle + ' '+data_server_user+'@'+data_server_host+':' + data_dir
+                subprocess.call(["rsync","-q","-p","--chmod=Du=rwx,Dg=rx,Fu=rw,Fg=r,o=","-e","ssh -i "+ssh_private_key,"-artvh",logfile_dir_without_slash,data_server_user+"@"+data_server_host+":"+server_log_dir])
+                rsynccmd = 'rsync -artvh -q -p -e "ssh -i '+ssh_private_key+'" '+'--chmod=Du=rwx,Dg=rx,Fu=rw,Fg=r,o='+ run_handle + ' '+data_server_user+'@'+data_server_host+':' + data_dir
                 print(rsynccmd)
                 if log_details is True:
                     logger.info("Start archiving: "+rsynccmd+"\n")
@@ -225,7 +225,7 @@ def main():
                     status_id=2
                     status_id_str=str(status_id)
                     change_logfile(logfile,current_ID,status_id_str)
-                    subprocess.call(["rsync","-q","-p","--chmod=ug=rwx","-e","ssh -i "+ssh_private_key,"-artvh",logfile_dir_without_slash,data_server_user+"@"+data_server_host+":"+server_log_dir])
+                    subprocess.call(["rsync","-q","-p","--chmod=Du=rwx,Dg=rx,Fu=rw,Fg=r,o=","-e","ssh -i "+ssh_private_key,"-artvh",logfile_dir_without_slash,data_server_user+"@"+data_server_host+":"+server_log_dir])
                     doUpdate(current_ID,status_id)
                     data_dir_server=data_dir+"/"+run_name
                     if log_details is True:
@@ -239,7 +239,7 @@ def main():
                         status_id=3
                         status_id_str=str(status_id)
                         change_logfile(logfile,current_ID,status_id_str)
-                        subprocess.call(["rsync","-q","-p","--chmod=ug=rwx","-e","ssh -i "+ssh_private_key,"-artvh",logfile_dir_without_slash,data_server_host_full+":"+server_log_dir])
+                        subprocess.call(["rsync","-q","-p","--chmod=Du=rwx,Dg=rx,Fu=rw,Fg=r,o=","-e","ssh -i "+ssh_private_key,"-artvh",logfile_dir_without_slash,data_server_host_full+":"+server_log_dir])
                         doUpdate(current_ID,status_id)
                         if send_email_switch is True:
                             send_email(gmail_user,gmail_pass,machine,email_list,"Data archiving finished",run_name,"")
