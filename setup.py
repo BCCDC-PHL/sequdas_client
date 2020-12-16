@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/duanjunhyq/sequdas",
     packages=setuptools.find_packages(include=['sequdas_client','sequdas_client.Lib']),
-    install_requires=['configparser','mysql-connector-python','pytz','ntplib','validate_email'],
+    install_requires=['configparser','mysql-connector-python','pytz','ntplib','validate_email', 'paramiko'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
