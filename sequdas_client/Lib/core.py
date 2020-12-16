@@ -305,7 +305,7 @@ def del_old_file(filename):
         status_id_str=str(status_id)            
         for item in my_list:
             change_logfile(logfile,item,status_id_str)
-            subprocess.call(["rsync","-p","--chmod=ug=rwx","-artvh",logfile_dir_without_slash,data_server+":"+server_log_dir])
+            subprocess.call(["rsync","-p","--chmod=Du=rwx,Dg=rx,Fu=rw,Fg=r,o=","-artvh",logfile_dir_without_slash,data_server+":"+server_log_dir])
     return my_list
 
 def del_old_file_based_on_db():
